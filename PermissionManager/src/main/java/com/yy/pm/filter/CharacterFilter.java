@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author zk
  *
  */
-@WebFilter(filterName="characterFilter",urlPatterns="/*")
-public class CharacterFilter implements Filter {
+
+public class CharacterFilter  {
 
 	public void doFilter(ServletRequest arg0, ServletResponse arg1,
 			FilterChain arg2) throws IOException, ServletException {

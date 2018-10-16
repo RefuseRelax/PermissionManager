@@ -59,6 +59,9 @@ public class InfoUser extends Id {
 	//地址ַ
 	@FieldAnnotation(index=9,filedName="address",filedType=FiledType.VARCHAR,length=255,comment="地址ַ")
 	private String address;
+	
+	@FieldAnnotation(index=10,filedName="role_id",filedType=FiledType.INTEGER,length=4,comment="角色idַ")
+	private String roleId;
 
 	public String getUsername() {
 		return username;
