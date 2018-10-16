@@ -26,7 +26,7 @@ import com.yy.pm.util.JDBCManager;
  */
 public class AutoCreateTable implements ServletContextListener{
 
-	//��ȡ���������ݣ��ж��Ƿ���Ҫ�½���
+	//获取上下文参数，是否新建表
 	public void contextInitialized(ServletContextEvent sce) {
 		// TODO Auto-generated method stub
 		Boolean isCreateTable = Boolean.parseBoolean(sce.getServletContext().getInitParameter("isAutoCreateTable"));
@@ -55,6 +55,8 @@ public class AutoCreateTable implements ServletContextListener{
 				boolean isAxist = isAxistTable(tabanno.tableName());
 				if(!isAxist){
 				  getSql(clazz,tabanno.tableName());
+				}else{
+					System.out.println("表已存在");
 				}
 			}
 		}
