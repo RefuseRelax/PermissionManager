@@ -9,14 +9,14 @@ import com.yy.pm.annotation.FieldAnnotation;
 import com.yy.pm.annotation.TableAnnotaion;
 import com.yy.pm.enums.FiledType;
 
-/**
+/**用户表
  * @author zk
  *
  */
 @TableAnnotaion(tableName="info_user")
 public class InfoUser extends Id {
 	
-	//主键
+	//用户主键
 	@FieldAnnotation(index=1,filedName="id",filedType=FiledType.BIGINT,isPrimaryKey=true,isAutoIncreament=true,comment="主键")
 	private Long id;
 	
