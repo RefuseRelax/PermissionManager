@@ -1,0 +1,23 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <context-param>
+  	<param-name>isAutoCreateTable</param-name>
+  	<param-value>true</param-value>
+  </context-param>
+  
+   <context-param>
+  	<param-name>packageName</param-name>
+  	<param-value>com.yy.pm.entity</param-value>
+  </context-param>
+  
+  <listener>
+  	<listener-class>com.yy.pm.listener.AutoCreateTable</listener-class>
+  </listener>
+  <welcome-file-list>
+  	<welcome-file>/WEB-INF/views/login.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
