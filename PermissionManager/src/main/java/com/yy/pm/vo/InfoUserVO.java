@@ -1,10 +1,13 @@
 /**
  * 
  */
-package com.yy.pm.entity;
+package com.yy.pm.vo;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import com.mysql.fabric.xmlrpc.base.Array;
 import com.yy.pm.annotation.FieldAnnotation;
 import com.yy.pm.annotation.TableAnnotaion;
 import com.yy.pm.enums.FiledType;
@@ -14,7 +17,7 @@ import com.yy.pm.enums.FiledType;
  *
  */
 @TableAnnotaion(tableName="info_user")
-public class InfoUser extends Id {
+public class InfoUserVO {
 	
 	//用户主键
 	@FieldAnnotation(index=1,filedName="id",filedType=FiledType.BIGINT,isPrimaryKey=true,isAutoIncreament=true,comment="主键")
@@ -61,10 +64,11 @@ public class InfoUser extends Id {
 	private String address;
 	
 	@FieldAnnotation(index=10,filedName="role_id",filedType=FiledType.INTEGER,length=4,comment="角色idַ")
-	private String roleId;
+	private Long roleId;
+	
+	private List<InfoPermissionVO> pers = new ArrayList<InfoPermissionVO>();
+	
 
-	
-	
 	public Long getId() {
 		return id;
 	}
@@ -89,11 +93,11 @@ public class InfoUser extends Id {
 		this.updateTime = updateTime;
 	}
 
-	public String getRoleId() {
+	public Long getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(String roleId) {
+	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
 
@@ -161,15 +165,22 @@ public class InfoUser extends Id {
 		this.address = address;
 	}
 
+	public List<InfoPermissionVO> getPers() {
+		return pers;
+	}
+
+	public void setPers(List<InfoPermissionVO> pers) {
+		this.pers = pers;
+	}
+
 	@Override
 	public String toString() {
-		return "InfoUser [id=" + id + ", createTime=" + createTime
+		return "InfoUserVO [id=" + id + ", createTime=" + createTime
 				+ ", updateTime=" + updateTime + ", username=" + username
 				+ ", nickname=" + nickname + ", password=" + password
 				+ ", sex=" + sex + ", qq=" + qq + ", status=" + status
 				+ ", phone=" + phone + ", address=" + address + ", roleId="
-				+ roleId + "]";
+				+ roleId + ", pers=" + pers + "]";
 	}
 
-	
 }

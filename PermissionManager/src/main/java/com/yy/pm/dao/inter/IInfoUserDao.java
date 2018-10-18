@@ -2,8 +2,13 @@ package com.yy.pm.dao.inter;
 
 import com.yy.pm.entity.InfoUser;
 
-public interface IInfoUserDao extends IBaseDao{
+public interface IInfoUserDao<T> extends IBaseDao<T>{
 	
-	public InfoUser getUser(String username);
+	/***
+	 * 根据用户账号查询数据
+	 * @param username
+	 * @return
+	 */
+	public InfoUser getSimpleUserByUsername(String username);
 
 }

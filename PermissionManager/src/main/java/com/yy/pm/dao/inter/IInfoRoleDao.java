@@ -1,5 +1,5 @@
 package com.yy.pm.dao.inter;
 
-public interface IInfoRoleDao extends IBaseDao{
+public interface IInfoRoleDao<T> extends IBaseDao<T>{
 
 }

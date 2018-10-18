@@ -1,5 +1,15 @@
 package com.yy.pm.dao.inter;
 
-public interface IBaseDao{
+import java.util.List;
+
+public interface IBaseDao<T>{
+	
+	public int insert(T t);
+	
+	public int delete(T t);
+	
+	public int update(T t);
+	
+	public List<T> query(T t);
 
 }
