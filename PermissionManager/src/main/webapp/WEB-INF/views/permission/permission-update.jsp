@@ -202,73 +202,25 @@
             </div>
 
             <!-- 菜单 -->
-            <ul class="sidebar-nav">
-                <li class="sidebar-nav-heading">Components <span class="sidebar-nav-heading-info"> 附加组件</span></li>
-                <li class="sidebar-nav-link">
-                    <a href="index.html">
-                        <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
-                    </a>
-                </li>
-                <li class="sidebar-nav-link">
-                    <a href="tables.html">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 表格
-                    </a>
-                </li>
-                <li class="sidebar-nav-link">
-                    <a href="calendar.html">
-                        <i class="am-icon-calendar sidebar-nav-link-logo"></i> 日历
-                    </a>
-                </li>
-                <li class="sidebar-nav-link">
-                    <a href="form.html" class="active">
-                        <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 表单
-
-                    </a>
-                </li>
-                <li class="sidebar-nav-link">
-                    <a href="chart.html">
-                        <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 图表
-
-                    </a>
-                </li>
-
-                <li class="sidebar-nav-heading">Page<span class="sidebar-nav-heading-info"> 常用页面</span></li>
+           <ul class="sidebar-nav">
+                <!--  <li class="sidebar-nav-heading"><span class="sidebar-nav-heading-info"></span></li>-->
+                <c:forEach var="per" items="${loginUser.pers}">
                 <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 数据列表
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> ${per.pname}
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
-                    </a>
+                    </a>          
                     <ul class="sidebar-nav sidebar-nav-sub">
-                        <li class="sidebar-nav-link">
-                            <a href="table-list.html">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 文字列表
-                            </a>
-                        </li>
-
-                        <li class="sidebar-nav-link">
-                            <a href="table-list-img.html">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图文列表
-                            </a>
-                        </li>
+                        <c:forEach var="p" items="${per.childrenPer}">
+	                        <li class="sidebar-nav-link">
+	                            <a href="${p.url}">
+	                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> ${p.pname}
+	                            </a>
+	                        </li>
+                        </c:forEach>
                     </ul>
                 </li>
-                <li class="sidebar-nav-link">
-                    <a href="sign-up.html">
-                        <i class="am-icon-clone sidebar-nav-link-logo"></i> 注册
-                        <span class="am-badge am-badge-secondary sidebar-nav-link-logo-ico am-round am-fr am-margin-right-sm">6</span>
-                    </a>
-                </li>
-                <li class="sidebar-nav-link">
-                    <a href="login.html">
-                        <i class="am-icon-key sidebar-nav-link-logo"></i> 登录
-                    </a>
-                </li>
-                <li class="sidebar-nav-link">
-                    <a href="404.html">
-                        <i class="am-icon-tv sidebar-nav-link-logo"></i> 404错误
-                    </a>
-                </li>
-
+                </c:forEach>
             </ul>
         </div>
 
@@ -278,11 +230,11 @@
             <div class="container-fluid am-cf">
                 <div class="row">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 表单 <small>Amaze UI</small></div>
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 权限 <small>permission</small></div>
                         <p class="page-header-description">Amaze UI 有许多不同的表格可用。</p>
                     </div>
                     <div class="am-u-lg-3 tpl-index-settings-button">
-                        <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
+                        <button type="button" class="page-header-button" onclick="javascript:history.go(-1)"><span class="am-icon-paint-brush"></span> 返回</button>
                     </div>
                 </div>
 
@@ -303,11 +255,12 @@
                             </div>
                             <div class="widget-body am-fr">
 
-                                <form class="am-form tpl-form-line-form">
+                                <form class="am-form tpl-form-line-form" action="/permission?op=execUpdate" method="post">
+                               	    <input type="hidden" name="id" value="${per.id}">
                                     <div class="am-form-group">
                                         <label for="user-name" class="am-u-sm-3 am-form-label">权限名称 <span class="tpl-form-line-small-title">名称</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" id="user-name" name="pname" placeholder="请输入权限名称">${pname}
+                                            <input type="text" class="tpl-form-input" id="user-name" name="pname" placeholder="请输入权限名称" value="${per.pname}">
                                             <small>请填写权限名称。</small>
                                         </div>
                                     </div>
@@ -315,7 +268,7 @@
                                     <div class="am-form-group">
                                         <label for="user-name" class="am-u-sm-3 am-form-label">权限代码 <span class="tpl-form-line-small-title">代码</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" id="user-name" name="pname" placeholder="请输入权限代码">${pcode}
+                                            <input type="text" class="tpl-form-input" id="user-name" name="pcode" placeholder="请输入权限代码" value="${per.pcode}" readonly="readonly">
                                             <small>请填写权限代码,使用大写字母,每个单词下划线隔开。</small>
                                         </div>
                                     </div>
@@ -323,7 +276,7 @@
                                      <div class="am-form-group">
                                         <label for="user-name" class="am-u-sm-3 am-form-label">权限路径 <span class="tpl-form-line-small-title">路径</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" id="user-name" name="pname" placeholder="请输入权限路径">${url}
+                                            <input type="text" class="tpl-form-input" id="user-name" name="url" placeholder="请输入权限路径" value="${per.url}">
                                             <small>请填写权限路径。</small>
                                         </div>
                                     </div>
@@ -332,8 +285,9 @@
                                         <label for="user-intro" class="am-u-sm-3 am-form-label">是否菜单 <span class="tpl-form-line-small-title">菜单</span></label>
                                         <div class="am-u-sm-9">
                                             <div class="tpl-switch">
-                                            	<input type="hidden" id="isMenu" value="${isMenu}">
-                                                <input type="checkbox" class="ios-switch bigswitch tpl-switch-btn isMenu">
+                                     
+                                                <input type="checkbox" name="isMenu" value="1" class="ios-switch bigswitch tpl-switch-btn isMenu"/>
+                                
                                                 <div class="tpl-switch-btn-view">
                                                     <div>
                                                     </div>
@@ -342,14 +296,15 @@
 
                                         </div>
                                     </div>
-                                    
+                                    <input type="hidden" name="isMenu" id="isMenu" value="${per.isMenu}">
+                                    <input type="hidden" name="parentMenu"  value="${per.parentId}">
                                      <div class="am-form-group">
                                         <label for="user-phone" class="am-u-sm-3 am-form-label">父级菜单 <span class="tpl-form-line-small-title">父级</span></label>
                                         <div class="am-u-sm-9">
-                                            <select data-am-selected="{searchBox: 1}" style="display: none;">
-                                              <option value=""></option>
-                                              <c:forEach>
-											  	<option value="${p.id}">${pname}</option>
+                                            <select name="parentId" data-am-selected="{searchBox: 1}" style="display: none;">
+                                              <option value="0"></option>
+                                              <c:forEach items="${aps}" var="p">
+											  	<option value="${p.id}" <c:if test="${per.parentId==p.id}">selected</c:if>>${p.pname}</option>
 											  </c:forEach>
 											</select>
 
@@ -359,7 +314,7 @@
                                      <div class="am-form-group">
                                         <label for="user-intro" class="am-u-sm-3 am-form-label">权限描述 <span class="tpl-form-line-small-title">描述</span></label>
                                         <div class="am-u-sm-9">
-                                            <textarea class="" rows="10" id="user-intro" placeholder="请输入权限描述">${description}</textarea>
+                                            <textarea class="" rows="10" name="description" id="user-intro" placeholder="请输入权限描述" >${per.description}</textarea>
                                         </div>
                                     </div>
 
@@ -381,7 +336,7 @@
 
                                     <div class="am-form-group">
                                         <div class="am-u-sm-9 am-u-sm-push-3">
-                                            <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                                            <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
                                         </div>
                                     </div>
                                 </form>
@@ -404,6 +359,7 @@
 			if(isMenu==1){
 				$(".isMenu").attr("checked","checked");
 			}
+			$("#isMenu").val(0);
 		})
 	</script>
 </body>

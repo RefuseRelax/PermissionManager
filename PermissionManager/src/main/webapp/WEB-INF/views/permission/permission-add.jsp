@@ -200,7 +200,7 @@
                     <a href="javascript:;" class="tpl-user-panel-action-link"> <span class="am-icon-pencil"></span> 账号设置</a>
                 </div>
             </div>
-            
+
             <!-- 菜单 -->
             <ul class="sidebar-nav">
                 <!--  <li class="sidebar-nav-heading"><span class="sidebar-nav-heading-info"></span></li>-->
@@ -224,110 +224,123 @@
             </ul>
         </div>
 
-
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper">
-            <div class="row-content am-cf">
+
+            <div class="container-fluid am-cf">
                 <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 权限 <small>permission</small></div>
+                        <p class="page-header-description">Amaze UI 有许多不同的表格可用。</p>
+                    </div>
+                    <div class="am-u-lg-3 tpl-index-settings-button">
+                        <button type="button" class="page-header-button" onclick="javascript:history.go(-1)"><span class="am-icon-paint-brush"></span> 返回</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row-content am-cf">
+
+
+                <div class="row">
+
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title  am-cf">文章列表</div>
-
-
+                                <div class="widget-title am-fl">权限新增</div>
+                                <div class="widget-function am-fr">
+                                    <a href="javascript:;" class="am-icon-cog"></a>
+                                </div>
                             </div>
-                            <div class="widget-body  am-fr">
+                            <div class="widget-body am-fr">
 
-                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+                                <form class="am-form tpl-form-line-form" action="/permission?op=execAdd" method="post">
                                     <div class="am-form-group">
-                                        <div class="am-btn-toolbar">
-                                            <div class="am-btn-group am-btn-group-xs">
-                                                <button type="button" class="am-btn am-btn-default am-btn-success" onclick="add();"><span class="am-icon-plus"></span> 新增</button>
-                                               <!--<button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
-                                                <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>  --> 
+                                        <label for="user-name" class="am-u-sm-3 am-form-label">权限名称 <span class="tpl-form-line-small-title">名称</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" id="user-name" name="pname" placeholder="请输入权限名称">
+                                            <small>请填写权限名称。</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="am-form-group">
+                                        <label for="user-name" class="am-u-sm-3 am-form-label">权限代码 <span class="tpl-form-line-small-title">代码</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" id="user-name" name="pcode" placeholder="请输入权限代码" onchange="">
+                                            <small>请填写权限代码,使用大写字母,每个单词下划线隔开。</small>
+                                        </div>
+                                    </div>
+                                    
+                                     <div class="am-form-group">
+                                        <label for="user-name" class="am-u-sm-3 am-form-label">权限路径 <span class="tpl-form-line-small-title">路径</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" id="user-name" name="url" placeholder="请输入权限路径">
+                                            <small>请填写权限路径。</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="am-form-group">
+                                        <label for="user-intro" class="am-u-sm-3 am-form-label">是否菜单 <span class="tpl-form-line-small-title">菜单</span></label>
+                                        <div class="am-u-sm-9">
+                                            <div class="tpl-switch">
+                                                <input type="checkbox" name="isMenu" value="1" class="ios-switch bigswitch tpl-switch-btn isMenu"/>
+                                                <div class="tpl-switch-btn-view">
+                                                    <div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-                                    <div class="am-form-group tpl-table-list-select">
-                                        <select data-am-selected="{btnSize: 'sm'}">
-              <option value="option1">所有类别</option>
-              <option value="option2">IT业界</option>
-              <option value="option3">数码产品</option>
-              <option value="option3">笔记本电脑</option>
-              <option value="option3">平板电脑</option>
-              <option value="option3">只能手机</option>
-              <option value="option3">超极本</option>
-            </select>
-                                    </div>
-                                </div>
-                                <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-                                    <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                        <input type="text" class="am-form-field ">
-                                        <span class="am-input-group-btn">
-            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
-          </span>
-                                    </div>
-                                </div>
+                                    <input type="hidden" name="isMenu" id="isMenu" value="0">
+                                    
+                                     <div class="am-form-group">
+                                        <label for="user-phone" class="am-u-sm-3 am-form-label">父级菜单 <span class="tpl-form-line-small-title">父级</span></label>
+                                        <div class="am-u-sm-9">
+                                            <select name="parentId" data-am-selected="{searchBox: 1}" style="display: none;">
+                                              <option value="0">请选择</option>
+                                              <c:forEach items="${aps}" var="p">
+											  	<option value="${p.id}">${p.pname}</option>
+											  </c:forEach>
+											</select>
 
-                                <div class="am-u-sm-12">
-                                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
-                                        <thead>
-                                            <tr>
-                                                <th>权限名称</th>
-                                                <th>权限代码</th>
-                                                <th>权限路径</th>
-                                                <th>是否是菜单</th>
-                                                <th>权限描述</th>
-                                                <th>创建时间</th>
-                                                <th>操作</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        	<c:forEach items="${pers}" var="p">
-	                                            <tr class="gradeX">
-	                                                <td>${p.pname}</td>
-	                                                <td>${p.pcode}</td>
-	                                                <td>${p.url}</td>
-	                                                <td>${p.isMenu}</td>
-	                                                <td>${p.description}</td>
-	                                                <td>${p.createTime}</td>
-	                                                <td>
-	                                                    <div class="tpl-table-black-operation">
-	                                                        <a href="/permission?op=update&id=${p.id}">
-	                                                            <i class="am-icon-pencil"></i> 编辑
-	                                                        </a>
-	                                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-	                                                            <i class="am-icon-trash"></i> 删除
-	                                                        </a>
-	                                                    </div>
-	                                                </td>
-	                                            </tr>
-                                            </c:forEach>
-                                            <!-- more data -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="am-u-lg-12 am-cf">
-
-                                    <div class="am-fr">
-                                        <ul class="am-pagination tpl-pagination">
-                                            <li class="am-disabled"><a href="#">«</a></li>
-                                            <li class="am-active"><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#">4</a></li>
-                                            <li><a href="#">5</a></li>
-                                            <li><a href="#">»</a></li>
-                                        </ul>
+                                        </div>
                                     </div>
-                                </div>
+                                    
+                                     <div class="am-form-group">
+                                        <label for="user-intro" class="am-u-sm-3 am-form-label">权限描述 <span class="tpl-form-line-small-title">描述</span></label>
+                                        <div class="am-u-sm-9">
+                                            <textarea class="" rows="10" name="description" id="user-intro" placeholder="请输入权限描述" ></textarea>
+                                        </div>
+                                    </div>
+
+
+                                <!--    <div class="am-form-group">
+                                        <label for="user-weibo" class="am-u-sm-3 am-form-label">封面图 <span class="tpl-form-line-small-title">Images</span></label>
+                                        <div class="am-u-sm-9">
+                                            <div class="am-form-group am-form-file">
+                                                <div class="tpl-form-file-img">
+                                                    <img src="assets/img/a5.png" alt="">
+                                                </div>
+                                                <button type="button" class="am-btn am-btn-danger am-btn-sm">
+    <i class="am-icon-cloud-upload"></i> 添加封面图片</button>
+                                                <input id="doc-form-file" type="file" multiple="">
+                                            </div>
+
+                                        </div>
+                                    </div>-->  
+
+                                    <div class="am-form-group">
+                                        <div class="am-u-sm-9 am-u-sm-push-3">
+                                            <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -336,12 +349,6 @@
     <script src="assets/js/amazeui.datatables.min.js"></script>
     <script src="assets/js/dataTables.responsive.min.js"></script>
     <script src="assets/js/app.js"></script>
-	<script type="text/javascript">
-		function add(event){
-			//event.returnValue = false;
-			window.location.href="/permission?op=add";
-		}
-	</script>
 </body>
 
 </html>

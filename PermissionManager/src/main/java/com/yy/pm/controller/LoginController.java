@@ -43,6 +43,7 @@ public class LoginController extends HttpServlet{
 			url = "/login.jsp";
 		}else {
 			InfoUserVO user = uservice.getSimpleUserByUsername(username);
+			System.out.println(user);
 			if(null==user){
 				message = "账户不存在";
 				url = "/login.jsp";
@@ -51,6 +52,7 @@ public class LoginController extends HttpServlet{
 				List<InfoPermissionVO> loginUserPer = pservice.getPermissionTreeByUid(user.getId());
 				user.setPers(loginUserPer);
 				//System.out.println(loginUserPer.toString());
+				System.out.println(loginUserPer);
 				session.setAttribute("loginUser", user);
 				url = "/index.jsp";
 			}else{

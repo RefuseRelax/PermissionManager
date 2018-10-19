@@ -51,6 +51,14 @@ public class InitDataController extends HttpServlet{
 			throws ServletException, IOException {
 		uservice.truncate();
 		System.out.println("haha");
+		updatePerTable();
+		updateRPTABLE();
+		updateRoleTable();
+		updateUserTable();
+	}
+	
+	public void updatePerTable(){
+		System.out.println("haha");
 		InfoPermissionVO pvo = new InfoPermissionVO();
 		pvo.setPname("系统管理");
 		pvo.setPcode("SYSTEM_MANAGE");
@@ -94,7 +102,9 @@ public class InitDataController extends HttpServlet{
 		//pvo3.setCreateTime(new Date());
 		//pvo3.setUpdateTime(new Date());
 		pservice.insert(pvo3);
-		
+	}
+
+	public void updateRPTABLE(){
 		RolePermissionVO rpvo = new RolePermissionVO();
 		rpvo.setRid(1l);
 		rpvo.setPid(1l);
@@ -114,14 +124,18 @@ public class InitDataController extends HttpServlet{
 		rpvo3.setRid(1l);
 		rpvo3.setPid(4l);
 		rpservice.insert(rpvo3);
-		
+	}
+
+	public void updateRoleTable(){
 		InfoRoleVO rvo = new InfoRoleVO();
 		rvo.setRname("超级管理员");
 		rvo.setRcode("SYSTEM_MANAGER");
 		rvo.setRdescription("超级管理员");
 		rvo.setCreateTime(new Date());
 		rvo.setUpdateTime(new Date());
-		
+	}
+
+	public void updateUserTable(){
 		InfoUserVO uvo = new InfoUserVO();
 		uvo.setUsername("admin");
 		uvo.setNickname("一号");
@@ -136,7 +150,4 @@ public class InitDataController extends HttpServlet{
 		uvo.setUpdateTime(new Date());
 		uservice.insert(uvo);
 	}
-	
-	
-
 }

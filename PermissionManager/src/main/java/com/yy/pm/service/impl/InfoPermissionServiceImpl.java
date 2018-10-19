@@ -105,11 +105,17 @@ public class InfoPermissionServiceImpl implements InfoPermissionService{
 		return pervos;
 	}
 	
+	/**
+	 * 根据id去权限信息
+	 */
 	public InfoPermissionVO getPerById(Long id){
 		InfoPermission per = dao.getPerById(id);
 		InfoPermissionVO vo = new InfoPermissionVO();
 		try {
 			BeanUtils.copyProperties(vo, per);
+			if("null".equals(vo.getUrl())){
+				vo.setUrl(null);
+			}
 		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -120,8 +126,11 @@ public class InfoPermissionServiceImpl implements InfoPermissionService{
 		return vo;
 	}
 	
-	public List<InfoPermissionVO> getAllParentMenu(){	
-		List<InfoPermission> pers = dao.getAllParentMenu();
+	/**
+	 * 获取所有一级菜单
+	 */
+	public List<InfoPermissionVO> getAllParentMenu(Long id){	
+		List<InfoPermission> pers = dao.getAllParentMenu(id);
 		List<InfoPermissionVO> pervos = new ArrayList<InfoPermissionVO>();
 		try {
 			for(InfoPermission per : pers){
@@ -138,6 +147,24 @@ public class InfoPermissionServiceImpl implements InfoPermissionService{
 			e.printStackTrace();
 		}
 		return pervos;
+	}
+
+	/**
+	 * 修改权限
+	 */
+	public void updateById(InfoPermissionVO vo) {
+		// TODO Auto-generated method stub
+		InfoPermission per = new InfoPermission();
+		try {
+			BeanUtils.copyProperties(per, vo);
+			dao.update(per);
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

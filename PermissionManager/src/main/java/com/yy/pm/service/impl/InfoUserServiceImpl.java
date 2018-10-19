@@ -30,7 +30,9 @@ public class InfoUserServiceImpl implements InfoUserService{
 		InfoUser user = dao.getSimpleUserByUsername(username);
 		InfoUserVO vo = new InfoUserVO(); 
 		try {
-			BeanUtils.copyProperties(vo, user);
+			if(null!=user){
+				BeanUtils.copyProperties(vo, user);
+			}
 		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,6 +46,7 @@ public class InfoUserServiceImpl implements InfoUserService{
 	public void insert(InfoUserVO vo) {
 		// TODO Auto-generated method stub
 		InfoUser user = new InfoUser();
+		System.out.println(vo);
 		try {
 			BeanUtils.copyProperties(user, vo);
 			dao.insert(user);

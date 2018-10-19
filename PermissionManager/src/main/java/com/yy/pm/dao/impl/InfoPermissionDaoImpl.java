@@ -26,7 +26,9 @@ public class InfoPermissionDaoImpl extends BaseDaoImpl<InfoPermission> implement
 	 */
 	public int insert(InfoPermission t) {
 		// TODO Auto-generated method stub
+		System.out.println(t);
 		String sql = "insert into info_permission values(null,'"+t.getPname()+"','"+t.getPcode()+"','"+t.getUrl()+"',"+t.getIsMenu()+","+t.getParentId()+",'"+t.getDescription()+"','"+Timestamp.valueOf(DateUtil.dateToRoutineStringFormat(new Date()))+"','"+Timestamp.valueOf(DateUtil.dateToRoutineStringFormat(new Date()))+"')";
+		System.out.println(sql);
 		JDBCManager jdbc = new JDBCManager();
 		int i = jdbc.insert(sql);
 		jdbc.close();
@@ -46,7 +48,14 @@ public class InfoPermissionDaoImpl extends BaseDaoImpl<InfoPermission> implement
 	 */
 	public int update(InfoPermission t) {
 		// TODO Auto-generated method stub
-		return 0;
+		int i = 0;
+		if(null!=t){
+			String sql = "update info_permission p set p.pname='"+t.getPname()+"',p.url='"+t.getUrl()+"',p.is_menu="+t.getIsMenu()+",p.parent_id ="+(t.getParentId()!=0?t.getParentId():null)+",p.description='"+t.getDescription()+"',p.update_time='"+Timestamp.valueOf(DateUtil.dateToRoutineStringFormat(new Date()))+"' where id="+t.getId()+"";
+			JDBCManager jdbc = new JDBCManager();
+			i = jdbc.update(sql);
+			jdbc.close();
+		}
+		return i;
 	}
 
 	/**
@@ -88,7 +97,7 @@ public class InfoPermissionDaoImpl extends BaseDaoImpl<InfoPermission> implement
 	@SuppressWarnings("finally")
 	public List<InfoPermission> getParentMenuByUId(Long userId) {
 		// TODO Auto-generated method stub
-		String sql = "select * from info_user u , info_permission p,role_permission rp where u.id = "+userId+" and u.role_id = rp.rid and  rp.pid = p.id and  p.parent_id is null";
+		String sql = "select p.* from info_user u , info_permission p,role_permission rp where u.id = "+userId+" and u.role_id = rp.rid and  rp.pid = p.id and  p.parent_id is null";
 		JDBCManager jdbc = new JDBCManager();
 		List<InfoPermission> list = new ArrayList<InfoPermission>();
 		ResultSet rs = jdbc.query(sql);
@@ -104,7 +113,8 @@ public class InfoPermissionDaoImpl extends BaseDaoImpl<InfoPermission> implement
 				per.setParentId(rs.getLong("parent_id"));
 				per.setCreateTime(rs.getTimestamp("create_time"));
 				per.setUpdateTime(rs.getTimestamp("update_time"));
-				per.setChildrenPer(getChildrenMenuByUId(userId,rs.getLong("id")));
+				System.out.println("per:::::::"+per);
+				per.setChildrenPer(getChildrenMenuByUId(userId,per.getId()));
 				list.add(per);
 			}
 		} catch (SQLException e) {
@@ -118,12 +128,13 @@ public class InfoPermissionDaoImpl extends BaseDaoImpl<InfoPermission> implement
 	
 	
 	/**
-	 * 根据角色id查找相应的父级权限下的子集权限
+	 * 根据用户id查找相应的父级权限下的子集权限
 	 * @return
 	 */
 	public List<InfoPermission> getChildrenMenuByUId(Long userId,Long parentId) {
 		// TODO Auto-generated method stub
-		String sql = "select * from info_user u, info_permission p,role_permission rp where u.id = "+userId+" and u.role_id = rp.rid  and rp.pid = p.id and  p.parent_id =" + parentId;
+		String sql = "select p.* from info_user u, info_permission p,role_permission rp where u.id = "+userId+" and u.role_id = rp.rid  and rp.pid = p.id and  p.parent_id =" + parentId;
+		System.out.println(sql);
 		JDBCManager jdbc = new JDBCManager();
 		List<InfoPermission> list = new ArrayList<InfoPermission>();
 		ResultSet rs = jdbc.query(sql);
@@ -145,9 +156,14 @@ public class InfoPermissionDaoImpl extends BaseDaoImpl<InfoPermission> implement
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(list);
+		jdbc.close();
 		return list;
 	}
 	
+	/***
+	 * 根据id获取权限
+	 */
 	public InfoPermission getPerById(Long id){
 		String sql = "select * from info_permission where id = " + id;
 		JDBCManager jdbc = new JDBCManager();
@@ -178,9 +194,13 @@ public class InfoPermissionDaoImpl extends BaseDaoImpl<InfoPermission> implement
 	 * @return
 	 */
 	@SuppressWarnings("finally")
-	public List<InfoPermission> getAllParentMenu() {
+	public List<InfoPermission> getAllParentMenu(Long id) {
 		// TODO Auto-generated method stub
-		String sql = "select * from info_permission p where  p.parent_id is null";
+		StringBuilder bui = new StringBuilder("select * from info_permission p where  p.parent_id is null"); 
+		if(null!=id){
+			bui.append(" and p.id <> " +id);
+		}
+		String sql = bui.toString();
 		JDBCManager jdbc = new JDBCManager();
 		List<InfoPermission> list = new ArrayList<InfoPermission>();
 		ResultSet rs = jdbc.query(sql);

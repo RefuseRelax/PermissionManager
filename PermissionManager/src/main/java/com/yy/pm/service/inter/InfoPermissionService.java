@@ -15,5 +15,7 @@ public interface InfoPermissionService {
 	
 	public InfoPermissionVO getPerById(Long id);
 	
-	public List<InfoPermissionVO> getAllParentMenu();
+	public List<InfoPermissionVO> getAllParentMenu(Long id);
+	
+	public void updateById(InfoPermissionVO vo);
 }

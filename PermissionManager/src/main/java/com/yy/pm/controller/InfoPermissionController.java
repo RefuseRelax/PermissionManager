@@ -36,20 +36,35 @@ public class InfoPermissionController extends HttpServlet {
 			queryList(req, resp);
 		}
 		if("update".equals(op)){
-			update(req, resp);
+			jumpUpdate(req, resp);
+		}
+		if("add".equals(op)){
+			jumpAdd(req, resp);
 		}
 	}
+
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		String op = req.getParameter("op");
+		if("execUpdate".equals(op)){
+			execUpdate(req,resp);
+		}
+		if("execAdd".equals(op)){
+			execAdd(req,resp);
+		}
 	}
 	
+	/**
+	 * 跳转到权限清单页面
+	 * @param req
+	 * @param resp
+	 */
 	public void queryList(HttpServletRequest req, HttpServletResponse resp){
 		List<InfoPermissionVO> pers = pservice.getAllPermission();
-		System.out.println(pers.toString());
+		System.out.println("haha:"+pers.toString());
 		req.setAttribute("pers", pers);
 		try {
 			req.getRequestDispatcher("/WEB-INF/views/permission/permission-list.jsp").forward(req, resp);
@@ -62,9 +77,20 @@ public class InfoPermissionController extends HttpServlet {
 		}
 	}
 	
-	private void update(HttpServletRequest req, HttpServletResponse resp) {
+	/**
+	 * 跳转到修改页面
+	 * @param req
+	 * @param resp
+	 */
+	private void jumpUpdate(HttpServletRequest req, HttpServletResponse resp) {
 		// TODO Auto-generated method stub
 		Long id = Long.parseLong(req.getParameter("id"));
+		InfoPermissionVO vo = pservice.getPerById(id);
+		List<InfoPermissionVO> pers = pservice.getAllParentMenu(id);
+		req.setAttribute("aps", pers);
+		req.setAttribute("per", vo);
+		//System.out.println("vo:"+vo);
+		//System.out.println("per:"+pers);
 		try {
 			req.getRequestDispatcher("/WEB-INF/views/permission/permission-update.jsp").forward(req, resp);
 		} catch (ServletException e) {
@@ -74,5 +100,78 @@ public class InfoPermissionController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}	
+	
+	/**
+	 * 执行修改
+	 * @param req
+	 * @param resp
+	 */
+	private void execUpdate(HttpServletRequest req, HttpServletResponse resp) {
+		// TODO Auto-generated method stub
+		Long id = Long.parseLong(req.getParameter("id"));
+		String pname = req.getParameter("pname");
+		String url = req.getParameter("url");
+		Long parentId = Long.parseLong(req.getParameter("parentId"));
+		Integer isMenu = Integer.parseInt(req.getParameter("isMenu"));
+		String description = req.getParameter("description");
+		
+		//System.out.println(parentId);
+		InfoPermissionVO vo = new InfoPermissionVO();
+		vo.setPname(pname);
+		vo.setUrl(url);
+		vo.setIsMenu(isMenu);
+		vo.setId(id);
+		vo.setDescription(description);
+		vo.setParentId(parentId);
+		pservice.updateById(vo);
+		queryList(req, resp);
 	}
+	
+	/**
+	 * 跳转到新增页面
+	 * @param req
+	 * @param resp
+	 */
+	private void jumpAdd(HttpServletRequest req, HttpServletResponse resp) {
+		// TODO Auto-generated method stub
+		List<InfoPermissionVO> pers = pservice.getAllParentMenu(null);
+		req.setAttribute("aps", pers);
+		try {
+			req.getRequestDispatcher("/WEB-INF/views/permission/permission-add.jsp").forward(req, resp);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/***
+	 * 执行新增
+	 * @param req
+	 * @param resp
+	 */
+	private void execAdd(HttpServletRequest req, HttpServletResponse resp) {
+		// TODO Auto-generated method stub
+		String pname = req.getParameter("pname");
+		String pcode = req.getParameter("pcode");
+		String url = req.getParameter("url");
+		System.out.println("hhhh::::"+req.getParameter("parentId"));
+		Long parentId = req.getParameter("parentId").equals("")||req.getParameter("parentId").equals("0")||req.getParameter("parentId")==null?null:Long.parseLong(req.getParameter("parentId"));
+		Integer isMenu = Integer.parseInt(req.getParameter("isMenu"));
+		String description = req.getParameter("description");
+		System.out.println("jjj::::"+parentId);
+		InfoPermissionVO vo = new InfoPermissionVO();
+		vo.setPname(pname);
+		vo.setPcode(pcode);
+		vo.setUrl(url);
+		vo.setIsMenu(isMenu);
+		vo.setDescription(description);
+		vo.setParentId(null);
+		pservice.insert(vo);
+		queryList(req, resp);
+	}
+
 }

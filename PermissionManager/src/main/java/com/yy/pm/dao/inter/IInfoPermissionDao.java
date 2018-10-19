@@ -29,6 +29,6 @@ public interface IInfoPermissionDao<T> extends IBaseDao<T>{
 	 * 获取所有一级菜单
 	 * @return
 	 */
-	public List<InfoPermission> getAllParentMenu(); 
+	public List<InfoPermission> getAllParentMenu(Long id); 
 
 }
