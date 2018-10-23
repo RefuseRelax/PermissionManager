@@ -18,27 +18,21 @@ import com.yy.pm.enums.FiledType;
 public class InfoRoleVO {
 	
 	//角色主键
-	@FieldAnnotation(index=1,filedName="id",filedType=FiledType.BIGINT,isPrimaryKey=true,isAutoIncreament=true,comment="主键")
 	private Long id;
 	
-	//创建时间
 	@FieldAnnotation(index=10000,filedName="create_time",filedType=FiledType.DATETIME,comment="创建时间")
-	private Date createTime;
+	private String createTime;
 	
 	//更新时间
-	@FieldAnnotation(index=10001,filedName="update_time",filedType=FiledType.DATETIME,comment="更新时间")
-	private Date updateTime;
+	private String updateTime;
 	
 	//角色名称
-	@FieldAnnotation(index=2,filedName="rname",filedType=FiledType.VARCHAR,comment="角色名称")
 	private String rname;
 	
 	//角色代码
-	@FieldAnnotation(index=3,filedName="rcode",filedType=FiledType.VARCHAR,comment="角色代码",length=50)
 	private String rcode;
 	
 	//角色描述
-	@FieldAnnotation(index=4,filedName="description",filedType=FiledType.VARCHAR,comment="角色描述",length=255)
 	private String rdescription;
 
 	public Long getId() {
@@ -47,22 +41,6 @@ public class InfoRoleVO {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
 	}
 
 	public String getRname() {
@@ -88,5 +66,30 @@ public class InfoRoleVO {
 	public void setRdescription(String rdescription) {
 		this.rdescription = rdescription;
 	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	@Override
+	public String toString() {
+		return "InfoRoleVO [id=" + id + ", createTime=" + createTime
+				+ ", updateTime=" + updateTime + ", rname=" + rname
+				+ ", rcode=" + rcode + ", rdescription=" + rdescription + "]";
+	}
+	
+	
 	
 }

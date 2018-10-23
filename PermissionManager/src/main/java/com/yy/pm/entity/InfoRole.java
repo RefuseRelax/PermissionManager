@@ -88,5 +88,14 @@ public class InfoRole {
 	public void setRdescription(String rdescription) {
 		this.rdescription = rdescription;
 	}
+
+	@Override
+	public String toString() {
+		return "InfoRole [id=" + id + ", createTime=" + createTime
+				+ ", updateTime=" + updateTime + ", rname=" + rname
+				+ ", rcode=" + rcode + ", rdescription=" + rdescription + "]";
+	}
+	
+	
 	
 }

@@ -2,6 +2,7 @@ package com.yy.pm.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,6 +18,7 @@ public class JDBCManager {
 	
 	private Connection connection;
 	private Statement statement;
+	private PreparedStatement preparedStatement;
 	private ResultSet result;
 	
 	//加载静态文件
@@ -29,7 +31,7 @@ public class JDBCManager {
 	}
 	
 	//获取连接
-	public void getConnection(){
+	private void getConnection(){
 		try {
 			Class.forName(driver);
 			connection = DriverManager.getConnection(url, username, password);
@@ -55,6 +57,32 @@ public class JDBCManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public PreparedStatement getGeneralPreparedStatement(String sql){
+		try {
+			if(connection == null || connection.isClosed()){
+				getConnection();
+			}
+			preparedStatement = connection.prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return preparedStatement;
+	}
+	
+	public PreparedStatement getReturnPrimaryPreparedStatement(String sql){
+		try {
+			if(connection == null || connection.isClosed()){
+				getConnection();
+			}
+			preparedStatement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return preparedStatement;
 	}
 	
 	

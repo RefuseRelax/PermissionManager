@@ -129,10 +129,11 @@ public class InitDataController extends HttpServlet{
 	public void updateRoleTable(){
 		InfoRoleVO rvo = new InfoRoleVO();
 		rvo.setRname("超级管理员");
-		rvo.setRcode("SYSTEM_MANAGER");
+		rvo.setRcode("SUPER_MANAGER");
 		rvo.setRdescription("超级管理员");
-		rvo.setCreateTime(new Date());
-		rvo.setUpdateTime(new Date());
+		//rvo.setCreateTime(new Date());
+		//rvo.setUpdateTime(new Date());
+		rservice.insert(rvo);
 	}
 
 	public void updateUserTable(){

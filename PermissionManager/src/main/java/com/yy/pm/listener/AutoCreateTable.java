@@ -54,9 +54,9 @@ public class AutoCreateTable implements ServletContextListener{
 				TableAnnotaion tabanno = clazz.getAnnotation(TableAnnotaion.class);
 				boolean isAxist = isAxistTable(tabanno.tableName());
 				if(!isAxist){
-				  getSql(clazz,tabanno.tableName());
+				    getSql(clazz,tabanno.tableName());
 				}else{
-					System.out.println("表已存在");
+					System.out.println("表存在");
 				}
 			}
 		}

@@ -64,7 +64,7 @@ public class InfoPermissionController extends HttpServlet {
 	 */
 	public void queryList(HttpServletRequest req, HttpServletResponse resp){
 		List<InfoPermissionVO> pers = pservice.getAllPermission();
-		System.out.println("haha:"+pers.toString());
+		//System.out.println("haha:"+pers.toString());
 		req.setAttribute("pers", pers);
 		try {
 			req.getRequestDispatcher("/WEB-INF/views/permission/permission-list.jsp").forward(req, resp);
@@ -158,8 +158,9 @@ public class InfoPermissionController extends HttpServlet {
 		String pname = req.getParameter("pname");
 		String pcode = req.getParameter("pcode");
 		String url = req.getParameter("url");
-		System.out.println("hhhh::::"+req.getParameter("parentId"));
+		//System.out.println("hhhh::::"+req.getParameter("parentId"));
 		Long parentId = req.getParameter("parentId").equals("")||req.getParameter("parentId").equals("0")||req.getParameter("parentId")==null?null:Long.parseLong(req.getParameter("parentId"));
+		//System.out.println(parentId);
 		Integer isMenu = Integer.parseInt(req.getParameter("isMenu"));
 		String description = req.getParameter("description");
 		System.out.println("jjj::::"+parentId);
@@ -169,7 +170,7 @@ public class InfoPermissionController extends HttpServlet {
 		vo.setUrl(url);
 		vo.setIsMenu(isMenu);
 		vo.setDescription(description);
-		vo.setParentId(null);
+		vo.setParentId(parentId);
 		pservice.insert(vo);
 		queryList(req, resp);
 	}

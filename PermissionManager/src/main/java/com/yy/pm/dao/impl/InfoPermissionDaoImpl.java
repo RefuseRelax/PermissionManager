@@ -26,9 +26,9 @@ public class InfoPermissionDaoImpl extends BaseDaoImpl<InfoPermission> implement
 	 */
 	public int insert(InfoPermission t) {
 		// TODO Auto-generated method stub
-		System.out.println(t);
+		//System.out.println(t);
 		String sql = "insert into info_permission values(null,'"+t.getPname()+"','"+t.getPcode()+"','"+t.getUrl()+"',"+t.getIsMenu()+","+t.getParentId()+",'"+t.getDescription()+"','"+Timestamp.valueOf(DateUtil.dateToRoutineStringFormat(new Date()))+"','"+Timestamp.valueOf(DateUtil.dateToRoutineStringFormat(new Date()))+"')";
-		System.out.println(sql);
+		//System.out.println(sql);
 		JDBCManager jdbc = new JDBCManager();
 		int i = jdbc.insert(sql);
 		jdbc.close();
@@ -113,7 +113,7 @@ public class InfoPermissionDaoImpl extends BaseDaoImpl<InfoPermission> implement
 				per.setParentId(rs.getLong("parent_id"));
 				per.setCreateTime(rs.getTimestamp("create_time"));
 				per.setUpdateTime(rs.getTimestamp("update_time"));
-				System.out.println("per:::::::"+per);
+				//System.out.println("per:::::::"+per);
 				per.setChildrenPer(getChildrenMenuByUId(userId,per.getId()));
 				list.add(per);
 			}
@@ -133,8 +133,15 @@ public class InfoPermissionDaoImpl extends BaseDaoImpl<InfoPermission> implement
 	 */
 	public List<InfoPermission> getChildrenMenuByUId(Long userId,Long parentId) {
 		// TODO Auto-generated method stub
-		String sql = "select p.* from info_user u, info_permission p,role_permission rp where u.id = "+userId+" and u.role_id = rp.rid  and rp.pid = p.id and  p.parent_id =" + parentId;
-		System.out.println(sql);
+		StringBuilder bui = new StringBuilder("select p.* from info_permission p ");
+		if(null!=userId){
+			bui.append(",info_user u,role_permission rp where u.id = "+userId+" and u.role_id = rp.rid  and rp.pid = p.id and  p.parent_id =" + parentId);
+		}else{
+			bui.append("where p.parent_id =" + parentId);
+		}
+		
+		String sql = bui.toString();
+		//System.out.println(sql);
 		JDBCManager jdbc = new JDBCManager();
 		List<InfoPermission> list = new ArrayList<InfoPermission>();
 		ResultSet rs = jdbc.query(sql);
@@ -190,7 +197,7 @@ public class InfoPermissionDaoImpl extends BaseDaoImpl<InfoPermission> implement
 	}
 
 	/**
-	 * 获取所有一级菜单
+	 * 获取所有树状菜单
 	 * @return
 	 */
 	@SuppressWarnings("finally")
@@ -201,6 +208,7 @@ public class InfoPermissionDaoImpl extends BaseDaoImpl<InfoPermission> implement
 			bui.append(" and p.id <> " +id);
 		}
 		String sql = bui.toString();
+		//System.out.println("parent:" + sql);
 		JDBCManager jdbc = new JDBCManager();
 		List<InfoPermission> list = new ArrayList<InfoPermission>();
 		ResultSet rs = jdbc.query(sql);
@@ -216,7 +224,7 @@ public class InfoPermissionDaoImpl extends BaseDaoImpl<InfoPermission> implement
 				per.setParentId(rs.getLong("parent_id"));
 				per.setCreateTime(rs.getTimestamp("create_time"));
 				per.setUpdateTime(rs.getTimestamp("update_time"));
-				//per.setChildrenPer(getChildrenMenuByUId(userId,rs.getLong("id")));
+				per.setChildrenPer(getChildrenMenuByUId(null,rs.getLong("id")));
 				list.add(per);
 			}
 		} catch (SQLException e) {

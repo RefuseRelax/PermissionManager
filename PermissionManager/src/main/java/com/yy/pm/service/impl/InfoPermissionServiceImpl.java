@@ -68,7 +68,7 @@ public class InfoPermissionServiceImpl implements InfoPermissionService{
 						BeanUtils.copyProperties(cvo, p);
 						cpervos.add(cvo);
 					}
-					vo.setChildrenPer(cpers);
+					vo.setChildrenPer(cpervos);
 					pervos.add(vo);
 				}
 			} catch (IllegalAccessException e) {
@@ -78,6 +78,36 @@ public class InfoPermissionServiceImpl implements InfoPermissionService{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		return pervos;
+	}
+	
+	/**
+	 * 根据id获取所有树状菜单，若无id查询所有
+	 */
+	public List<InfoPermissionVO> getAllParentMenu(Long id){	
+		List<InfoPermission> pers = dao.getAllParentMenu(id);
+		List<InfoPermissionVO> pervos = new ArrayList<InfoPermissionVO>();
+		try {
+			for(InfoPermission per : pers){
+				InfoPermissionVO vo = new InfoPermissionVO();
+				BeanUtils.copyProperties(vo, per);
+				List<InfoPermission> cpers = per.getChildrenPer();
+				List<InfoPermissionVO> cpervos = new ArrayList<InfoPermissionVO>();
+				for(InfoPermission p : cpers){
+					InfoPermissionVO cvo = new InfoPermissionVO();
+					BeanUtils.copyProperties(cvo, p);
+					cpervos.add(cvo);
+				}
+				vo.setChildrenPer(cpervos);
+				pervos.add(vo);
+			}
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return pervos;
 	}
 
@@ -124,29 +154,6 @@ public class InfoPermissionServiceImpl implements InfoPermissionService{
 			e.printStackTrace();
 		}
 		return vo;
-	}
-	
-	/**
-	 * 获取所有一级菜单
-	 */
-	public List<InfoPermissionVO> getAllParentMenu(Long id){	
-		List<InfoPermission> pers = dao.getAllParentMenu(id);
-		List<InfoPermissionVO> pervos = new ArrayList<InfoPermissionVO>();
-		try {
-			for(InfoPermission per : pers){
-				InfoPermissionVO vo = new InfoPermissionVO();
-				BeanUtils.copyProperties(vo, per);
-				vo.setCreateTime(DateUtil.dateToRoutineStringFormat(per.getCreateTime()));
-				pervos.add(vo);
-			}
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return pervos;
 	}
 
 	/**
