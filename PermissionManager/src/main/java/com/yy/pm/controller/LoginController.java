@@ -2,6 +2,7 @@ package com.yy.pm.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,7 +32,7 @@ public class LoginController extends HttpServlet{
 		HttpSession session = req.getSession();
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
-		//InfoUser  user = uservice.getSimpleUserByUsername(username);
+		Map<String,InfoUserVO> loginedUser  = (Map<String,InfoUserVO>)req.getServletContext().getAttribute("logined");
 		String message = null;
 		String url = null;
 		if(null==username||username==""){
@@ -41,23 +42,28 @@ public class LoginController extends HttpServlet{
 		}else if(null==password||password==""){
 			message = "密码不能为空";
 			url = "/login.jsp";
-		}else {
-			InfoUserVO user = uservice.getSimpleUserByUsername(username);
-			System.out.println(user);
-			if(null==user){
-				message = "账户不存在";
+		}else {			
+			if(loginedUser.containsKey(username)){
+				message = "账户已在其他地方登陆";
 				url = "/login.jsp";
-			}else if(username.equals(user.getUsername())&&password.equals(user.getPassword())){
-				message = "账户不存在";
-				List<InfoPermissionVO> loginUserPer = pservice.getPermissionTreeByUid(user.getId());
-				user.setPers(loginUserPer);
-				//System.out.println(loginUserPer.toString());
-				System.out.println(loginUserPer);
-				session.setAttribute("loginUser", user);
-				url = "/index.jsp";
 			}else{
-				message = "账户或密码错误";
-				url = "/login.jsp";
+				InfoUserVO user = uservice.getSimpleUserByUsername(username);
+				System.out.println(user);
+				if(null==user){
+					message = "账户不存在";
+					url = "/login.jsp";
+				}else if(username.equals(user.getUsername())&&password.equals(user.getPassword())){
+
+					List<InfoPermissionVO> loginUserPer = pservice.getPermissionTreeByUid(user.getId());
+					user.setPers(loginUserPer);
+					//System.out.println(loginUserPer.toString());
+					System.out.println(loginUserPer);
+					session.setAttribute("loginUser", user);
+					url = "/index.jsp";
+				}else{
+					message = "账户或密码错误";
+					url = "/login.jsp";
+				}
 			}
 		}	
 		req.setAttribute("message", message);
@@ -68,6 +74,7 @@ public class LoginController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		req.getRequestDispatcher("/login.jsp").forward(req, resp);
 	}
 
 }

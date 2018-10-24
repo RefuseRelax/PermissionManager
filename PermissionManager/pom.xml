@@ -79,9 +79,23 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	    <artifactId>fastjson</artifactId>
 	    <version>1.2.51</version>
 	</dependency>
+	
+	<dependency>
+	    <groupId>com.comet4j</groupId>
+	    <artifactId>comet4j</artifactId>
+	    <version>1.0</version>
+	</dependency>
+
+				
+	<dependency>
+		<groupId>javax</groupId>
+	        <artifactId>javaee-api</artifactId>
+		<version>7.0</version>
+		<scope>provided</scope>
+	</dependency>
 
   </dependencies>
   <build>
-    <finalName>PermissionManager</finalName>
+    <finalName>PermissionManager</finalName> 
   </build>
 </project>

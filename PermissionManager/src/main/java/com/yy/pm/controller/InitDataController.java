@@ -150,5 +150,19 @@ public class InitDataController extends HttpServlet{
 		uvo.setCreateTime(new Date());
 		uvo.setUpdateTime(new Date());
 		uservice.insert(uvo);
+		
+		InfoUserVO uvo1 = new InfoUserVO();
+		uvo.setUsername("system");
+		uvo.setNickname("二号");
+		uvo.setPassword("111111");
+		uvo.setStatus(1);
+		uvo.setAddress("安徽");
+		uvo.setPhone("133333333");
+		uvo.setQq("12456789");
+		uvo.setRoleId(5l);
+		uvo.setSex(1);
+		uvo.setCreateTime(new Date());
+		uvo.setUpdateTime(new Date());
+		uservice.insert(uvo);
 	}
 }

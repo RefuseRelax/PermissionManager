@@ -1,4 +1,4 @@
-<%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +45,6 @@
                 </div>
 
 
-
                 <form action="/login" class="am-form tpl-form-line-form" method="post">
                     <div class="am-form-group">
                         <input type="text" name="username" class="tpl-form-input" id="user-name" placeholder="请输入账号">
@@ -76,6 +75,7 @@
 
                     </div>
                 </form>
+                <p style="text-align: center;color: red">${message}</p>
             </div>
         </div>
     </div>

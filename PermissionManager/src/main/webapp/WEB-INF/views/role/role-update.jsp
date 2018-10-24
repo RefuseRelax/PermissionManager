@@ -163,7 +163,7 @@
 
                         <!-- 退出 -->
                         <li class="am-text-sm">
-                            <a href="javascript:;">
+                            <a href="/logout">
                                 <span class="am-icon-sign-out"></span> 退出
                             </a>
                         </li>
@@ -231,7 +231,7 @@
             <div class="container-fluid am-cf">
                 <div class="row">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 权限 <small>permission</small></div>
+                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 角色 <small>role</small></div>
                         <p class="page-header-description">Amaze UI 有许多不同的表格可用。</p>
                     </div>
                     <div class="am-u-lg-3 tpl-index-settings-button">
