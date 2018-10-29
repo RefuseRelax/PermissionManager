@@ -64,7 +64,6 @@ public class InfoPermissionController extends HttpServlet {
 	 */
 	public void queryList(HttpServletRequest req, HttpServletResponse resp){
 		List<InfoPermissionVO> pers = pservice.getAllPermission();
-		//System.out.println("haha:"+pers.toString());
 		req.setAttribute("pers", pers);
 		try {
 			req.getRequestDispatcher("/WEB-INF/views/permission/permission-list.jsp").forward(req, resp);
@@ -89,8 +88,6 @@ public class InfoPermissionController extends HttpServlet {
 		List<InfoPermissionVO> pers = pservice.getAllParentMenu(id);
 		req.setAttribute("aps", pers);
 		req.setAttribute("per", vo);
-		//System.out.println("vo:"+vo);
-		//System.out.println("per:"+pers);
 		try {
 			req.getRequestDispatcher("/WEB-INF/views/permission/permission-update.jsp").forward(req, resp);
 		} catch (ServletException e) {
@@ -116,7 +113,6 @@ public class InfoPermissionController extends HttpServlet {
 		Integer isMenu = Integer.parseInt(req.getParameter("isMenu"));
 		String description = req.getParameter("description");
 		
-		//System.out.println(parentId);
 		InfoPermissionVO vo = new InfoPermissionVO();
 		vo.setPname(pname);
 		vo.setUrl(url);
@@ -158,12 +154,9 @@ public class InfoPermissionController extends HttpServlet {
 		String pname = req.getParameter("pname");
 		String pcode = req.getParameter("pcode");
 		String url = req.getParameter("url");
-		//System.out.println("hhhh::::"+req.getParameter("parentId"));
 		Long parentId = req.getParameter("parentId").equals("")||req.getParameter("parentId").equals("0")||req.getParameter("parentId")==null?null:Long.parseLong(req.getParameter("parentId"));
-		//System.out.println(parentId);
 		Integer isMenu = Integer.parseInt(req.getParameter("isMenu"));
 		String description = req.getParameter("description");
-		System.out.println("jjj::::"+parentId);
 		InfoPermissionVO vo = new InfoPermissionVO();
 		vo.setPname(pname);
 		vo.setPcode(pcode);

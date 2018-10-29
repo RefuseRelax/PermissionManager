@@ -12,6 +12,7 @@ import java.util.List;
 import com.yy.pm.dao.inter.IInfoUserDao;
 import com.yy.pm.dao.inter.IRolePermissionDao;
 import com.yy.pm.entity.RolePermission;
+import com.yy.pm.listener.inter.DaoListener;
 import com.yy.pm.util.JDBCManager;
 
 /**
@@ -19,6 +20,20 @@ import com.yy.pm.util.JDBCManager;
  *
  */
 public class RolePermissionDaoImpl extends BaseDaoImpl<RolePermission> implements IRolePermissionDao<RolePermission> {
+
+	public RolePermissionDaoImpl(DaoListener daolistener) {
+		super(daolistener);
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	public RolePermissionDaoImpl() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 
 	public int insert(RolePermission t) {
 		// TODO Auto-generated method stub

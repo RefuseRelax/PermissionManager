@@ -6,13 +6,18 @@ package com.yy.pm.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.collections.map.HashedMap;
 
 import com.alibaba.fastjson.JSON;
 import com.yy.pm.entity.InfoRole;
@@ -33,6 +38,8 @@ import com.yy.pm.vo.Tree;
  */
 @WebServlet(name="Role",urlPatterns="/role")
 public class InfoRoleController extends HttpServlet{
+	
+	private HttpSession session;
 	
 	private InfoRoleService rservice =  new InfoRoleServiceImpl();
 	
@@ -144,9 +151,7 @@ public class InfoRoleController extends HttpServlet{
 		// TODO Auto-generated method stub
 		
 		Long id = Long.parseLong(req.getParameter("id")==""||req.getParameter("id")==null?null:req.getParameter("id"));
-		//System.out.println(vos);
 		InfoRoleVO vo = rservice.getRoleById(id);
-		//System.out.println(vo);
 		req.setAttribute("role",vo);
 		try {
 			req.getRequestDispatcher("/WEB-INF/views/role/role-update.jsp").forward(req, resp);
@@ -164,6 +169,7 @@ public class InfoRoleController extends HttpServlet{
 	 * 角色清单
 	 * @param req
 	 * @param resp
+	 * @throws IOException 
 	 */
 	private void list(HttpServletRequest req, HttpServletResponse resp) {
 		// TODO Auto-generated method stub
@@ -198,7 +204,6 @@ public class InfoRoleController extends HttpServlet{
 		int count = 0;
 		if(null!=vos){
 			for(InfoPermissionVO vo : vos){
-				//System.out.println(vo);
 				Tree t = new Tree();
 				t.setNodeId(vo.getId()+count*100);
 				t.setParentId(0l);
@@ -224,7 +229,6 @@ public class InfoRoleController extends HttpServlet{
 			}
 		}
 		
-		//System.out.println(trees);
 		resp.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = resp.getWriter();
 		out.write(JSON.toJSONString(trees));

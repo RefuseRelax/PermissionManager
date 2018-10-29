@@ -18,12 +18,15 @@ import com.yy.pm.service.inter.InfoPermissionService;
 import com.yy.pm.service.inter.InfoUserService;
 import com.yy.pm.vo.InfoPermissionVO;
 import com.yy.pm.vo.InfoUserVO;
+import com.yy.pm.websocket.WebSocketService;
 
 @WebServlet(urlPatterns="/login")
 public class LoginController extends HttpServlet{
 	
 	InfoUserService uservice = new InfoUserServiceImpl();
 	InfoPermissionService pservice = new 	InfoPermissionServiceImpl();
+	
+	Map<String,InfoUserVO> loginedUser = null;
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -32,7 +35,7 @@ public class LoginController extends HttpServlet{
 		HttpSession session = req.getSession();
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
-		Map<String,InfoUserVO> loginedUser  = (Map<String,InfoUserVO>)req.getServletContext().getAttribute("logined");
+		loginedUser  = (Map<String,InfoUserVO>)req.getServletContext().getAttribute("logined");
 		String message = null;
 		String url = null;
 		if(null==username||username==""){
@@ -48,7 +51,6 @@ public class LoginController extends HttpServlet{
 				url = "/login.jsp";
 			}else{
 				InfoUserVO user = uservice.getSimpleUserByUsername(username);
-				System.out.println(user);
 				if(null==user){
 					message = "账户不存在";
 					url = "/login.jsp";
@@ -56,10 +58,9 @@ public class LoginController extends HttpServlet{
 
 					List<InfoPermissionVO> loginUserPer = pservice.getPermissionTreeByUid(user.getId());
 					user.setPers(loginUserPer);
-					//System.out.println(loginUserPer.toString());
-					System.out.println(loginUserPer);
 					session.setAttribute("loginUser", user);
-					url = "/index.jsp";
+					req.setAttribute("jumpPage", "/index.jsp");
+					url = "/header.jsp";
 				}else{
 					message = "账户或密码错误";
 					url = "/login.jsp";
@@ -74,6 +75,12 @@ public class LoginController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = req.getSession();
+		if(null != session.getAttribute("loginUser")){
+			req.setAttribute("jumpPage", "/index.jsp");
+			req.getRequestDispatcher("/header.jsp").forward(req, resp);
+			return;
+		}
 		req.getRequestDispatcher("/login.jsp").forward(req, resp);
 	}
 

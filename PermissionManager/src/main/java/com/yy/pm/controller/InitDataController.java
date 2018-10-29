@@ -50,7 +50,6 @@ public class InitDataController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		uservice.truncate();
-		System.out.println("haha");
 		updatePerTable();
 		updateRPTABLE();
 		updateRoleTable();
@@ -58,7 +57,6 @@ public class InitDataController extends HttpServlet{
 	}
 	
 	public void updatePerTable(){
-		System.out.println("haha");
 		InfoPermissionVO pvo = new InfoPermissionVO();
 		pvo.setPname("系统管理");
 		pvo.setPcode("SYSTEM_MANAGE");

@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.yy.pm.dao.inter.IUserRoleDao;
 import com.yy.pm.entity.UserRole;
+import com.yy.pm.listener.inter.DaoListener;
 
 
 
@@ -15,6 +16,20 @@ import com.yy.pm.entity.UserRole;
  *
  */
 public class UserRoleDaoImpl extends BaseDaoImpl<UserRole> implements IUserRoleDao<UserRole>{
+
+	public UserRoleDaoImpl(DaoListener daolistener) {
+		super(daolistener);
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	public UserRoleDaoImpl() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 
 	public int insert(UserRole t) {
 		// TODO Auto-generated method stub

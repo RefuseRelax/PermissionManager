@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.yy.pm.dao.inter.IInfoRoleDao;
 import com.yy.pm.entity.InfoRole;
+import com.yy.pm.listener.inter.DaoListener;
 import com.yy.pm.util.DateUtil;
 import com.yy.pm.util.JDBCManager;
 
@@ -22,6 +23,20 @@ import com.yy.pm.util.JDBCManager;
  *
  */
 public class InfoRoleDaoImpl extends BaseDaoImpl<InfoRole> implements IInfoRoleDao<InfoRole> {
+
+	public InfoRoleDaoImpl(DaoListener daolistener) {
+		super(daolistener);
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	public InfoRoleDaoImpl() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 
 	/**
 	 * 插入返回主键

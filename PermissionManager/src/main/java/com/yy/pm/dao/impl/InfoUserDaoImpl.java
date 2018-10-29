@@ -11,6 +11,7 @@ import java.util.List;
 import com.yy.pm.dao.inter.IInfoUserDao;
 import com.yy.pm.entity.InfoPermission;
 import com.yy.pm.entity.InfoUser;
+import com.yy.pm.listener.inter.DaoListener;
 import com.yy.pm.util.DateUtil;
 import com.yy.pm.util.JDBCManager;
 
@@ -19,6 +20,20 @@ import com.yy.pm.util.JDBCManager;
  *
  */
 public class InfoUserDaoImpl extends BaseDaoImpl<InfoUser> implements IInfoUserDao<InfoUser> {
+
+	public InfoUserDaoImpl(DaoListener daolistener) {
+		super(daolistener);
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	public InfoUserDaoImpl() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 
 	public InfoUser getSimpleUserByUsername(String username) {
 		// TODO Auto-generated method stub

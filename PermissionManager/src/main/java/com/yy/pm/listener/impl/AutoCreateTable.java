@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.yy.pm.listener;
+package com.yy.pm.listener.impl;
 
 import java.lang.reflect.Field;
 import java.util.Iterator;
@@ -56,7 +56,6 @@ public class AutoCreateTable implements ServletContextListener{
 				if(!isAxist){
 				    getSql(clazz,tabanno.tableName());
 				}else{
-					System.out.println("表存在");
 				}
 			}
 		}

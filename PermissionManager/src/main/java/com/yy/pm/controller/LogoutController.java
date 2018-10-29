@@ -22,6 +22,7 @@ public class LogoutController extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = req.getSession();
 		InfoUserVO user = (InfoUserVO)session.getAttribute("loginUser");
+		
 		if(null!=user){
 			ServletContext context = req.getServletContext();
 			Map<String,InfoUserVO> map = (Map<String,InfoUserVO>)context.getAttribute("logined");

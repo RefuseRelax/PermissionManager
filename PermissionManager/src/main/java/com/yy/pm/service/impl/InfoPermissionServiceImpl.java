@@ -18,6 +18,9 @@ import com.yy.pm.dao.inter.IInfoRoleDao;
 import com.yy.pm.dao.inter.IInfoUserDao;
 import com.yy.pm.entity.InfoPermission;
 import com.yy.pm.entity.InfoUser;
+import com.yy.pm.event.DaoAttributeEvent;
+import com.yy.pm.listener.impl.DaoLinstenerImpl;
+import com.yy.pm.listener.inter.DaoListener;
 import com.yy.pm.service.inter.InfoPermissionService;
 import com.yy.pm.service.inter.InfoRoleService;
 import com.yy.pm.service.inter.InfoUserService;
@@ -31,6 +34,8 @@ import com.yy.pm.vo.InfoPermissionVO;
 public class InfoPermissionServiceImpl implements InfoPermissionService{
 	
 	private IInfoPermissionDao dao = new InfoPermissionDaoImpl();
+	
+
 
 	/**
 	 * 插入

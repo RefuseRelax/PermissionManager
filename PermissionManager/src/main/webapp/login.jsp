@@ -81,7 +81,11 @@
     </div>
     <script src="assets/js/amazeui.min.js"></script>
     <script src="assets/js/app.js"></script>
-
+	<script type="text/javascript">
+		if(window !=top){
+			top.location.href=location.href;
+		}
+	</script>
 </body>
 
 </html>

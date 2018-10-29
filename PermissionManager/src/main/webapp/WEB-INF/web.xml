@@ -15,7 +15,7 @@
   </context-param>
   
   <listener>
-  	<listener-class>com.yy.pm.listener.AutoCreateTable</listener-class>
+  	<listener-class>com.yy.pm.listener.impl.AutoCreateTable</listener-class>
   </listener>
   <welcome-file-list>
   	<welcome-file>/login.jsp</welcome-file>

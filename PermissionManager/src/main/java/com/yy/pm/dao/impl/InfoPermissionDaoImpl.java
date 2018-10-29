@@ -12,6 +12,8 @@ import java.util.List;
 
 import com.yy.pm.dao.inter.IInfoPermissionDao;
 import com.yy.pm.entity.InfoPermission;
+import com.yy.pm.event.DaoAttributeEvent;
+import com.yy.pm.listener.inter.DaoListener;
 import com.yy.pm.util.DateUtil;
 import com.yy.pm.util.JDBCManager;
 
@@ -20,15 +22,19 @@ import com.yy.pm.util.JDBCManager;
  *
  */
 public class InfoPermissionDaoImpl extends BaseDaoImpl<InfoPermission> implements IInfoPermissionDao<InfoPermission> {
+	
+	public InfoPermissionDaoImpl() {
 
+		// TODO Auto-generated constructor stub
+	}
+	
 	/**
 	 * 插入
 	 */
 	public int insert(InfoPermission t) {
-		// TODO Auto-generated method stub
-		//System.out.println(t);
+		
 		String sql = "insert into info_permission values(null,'"+t.getPname()+"','"+t.getPcode()+"','"+t.getUrl()+"',"+t.getIsMenu()+","+t.getParentId()+",'"+t.getDescription()+"','"+Timestamp.valueOf(DateUtil.dateToRoutineStringFormat(new Date()))+"','"+Timestamp.valueOf(DateUtil.dateToRoutineStringFormat(new Date()))+"')";
-		//System.out.println(sql);
+		
 		JDBCManager jdbc = new JDBCManager();
 		int i = jdbc.insert(sql);
 		jdbc.close();
